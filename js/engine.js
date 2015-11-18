@@ -80,7 +80,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        //checkCollisions();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -118,6 +118,7 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
+
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
@@ -172,7 +173,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-frog.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
