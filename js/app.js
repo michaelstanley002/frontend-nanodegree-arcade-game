@@ -4,7 +4,10 @@ var Enemy = function(x, y, speed) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
+
+    //speed of the enemy
     this.speed = speed;
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
 
@@ -31,7 +34,11 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    displayScoreLevel(score);
+
+    //Displays Score
+    displayScore(score);
+
+    //Displays instructions below score
     instructionsDisplay();
 };
 
@@ -42,6 +49,8 @@ var Player = function(x, y, speed){
     this.x = x;
     this.y = y;
     this.speed = speed;
+
+    //Change this code to change characters--Don't forget to change in engine.js
     this.sprite = 'images/char-frog.png';
 };
 
@@ -55,7 +64,7 @@ Player.prototype.update = function(){
 
 };
 
-//Define player.handleInput
+//Handles player input
 Player.prototype.handleInput = function(keyPress) {
     if (keyPress == 'left') {
         player.x -= player.speed;
@@ -69,7 +78,9 @@ Player.prototype.handleInput = function(keyPress) {
     if (keyPress == 'down') {
         player.y += player.speed - 20;
     }
-    console.log('keyPress is: ' + keyPress);
+
+    //logs keypress in console
+    //console.log('keyPress is: ' + keyPress);
 };
 
 //Check collision between enemy/player/screen and wins
@@ -81,26 +92,50 @@ var checkCollisions = function(anEnemy){
         && player.x + 25 <= anEnemy.x + 88
         && player.y + 73 <= anEnemy.y + 135
         && player.x + 76 >= anEnemy.x + 11) {
+
+        //Resets score to 0 on loss
         score = 0;
-        console.log("#Losing")
-        console.log(" Score: " + score);
+
+        //logs info in console
+        //console.log("#Losing")
+        //console.log(" Score: " + score);
+
+        //Resets difficulty to 0 on loss
         difficulty = 0;
+
+        //Resets enemies
         increaseDifficulty(difficulty);
-        console.log(difficulty);
+
+        //logs difficulty in console
+        //console.log(difficulty);
+
+        //Resets player to starting position
         player.x = 202.5;
         player.y = 383;
     }
         
-    //Check if win conditions are met and save score
+    //Check if win conditions are met, gives a point and changes difficulty
     if (player.y < 10) {
+
+        //Resets player to starting position
         player.y = 383;
         player.x = 202.5;
+
+        //Adds 1 to score
         score++;
-        console.log("#Winning");
-        console.log(" Score: " + score);
+
+        //Logs info to console
+        //console.log("#Winning");
+        //console.log(" Score: " + score);
+
+        //Runs setDifficulty function to aid in changing difficulty if needed
         setDifficulty();
+
+        //Increases difficulty if required
         increaseDifficulty(difficulty);
-        console.log(difficulty);
+
+        //Logs info to console 
+        //console.log(difficulty);
         }
 
     //Check player collisions with screen borders
@@ -119,17 +154,28 @@ var checkCollisions = function(anEnemy){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 //Define enemy object array allEnemies
+
+//Array for enemies
 var allEnemies = [];
+
+//player object
 var player = new Player(202.5, 383, 50);
+
+//Sets score and difficulty to starting points
 var score = 0;
 var difficulty = 1;
+
+//Divs for output to screen
 var scoreDiv = document.createElement('div');
 var instructionsDiv = document.createElement('div2')
 
-
+//Sets enemy with position and speed
 var enemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 256);
+
+//Displays enemy on start
 allEnemies.push(enemy);
 
+//Sets difficulty depending on score
 var setDifficulty = function(){
 
     if (score > 0 && 
@@ -153,6 +199,7 @@ var setDifficulty = function(){
         difficulty = 5;
     }
     //Activate God Mode
+    //If you would like to jump to this difficulty, console "score = 20" without quotes
     else if (score >20){
         difficulty = 100;
     }
@@ -173,20 +220,24 @@ var increaseDifficulty = function(difficulty) {
 
 
 // Displays players score
-var displayScoreLevel = function(score){
+var displayScore = function(score){
     var canvas = document.getElementsByTagName('canvas');
     var firstCanvasTag = canvas[0];
 
+    //Changes score div to GODMODE if score is above 20
     if (score >20){
         scoreDiv.innerHTML = 'GODMODE ACTIVATED!';
         document.body.insertBefore(scoreDiv, firstCanvasTag[0]);
     }
-        
+    
+    //Displays the score while first condition is not met
     else{
         scoreDiv.innerHTML = 'Score: ' + score;
         document.body.insertBefore(scoreDiv, firstCanvasTag[0]);
     }
 };
+
+//Displays instructions below displayScore div
 var instructionsDisplay = function(){
     var canvas = document.getElementsByTagName('canvas');
     var secondCanvasTag = canvas[0];
