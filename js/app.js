@@ -88,10 +88,10 @@ var checkCollisions = function(anEnemy){
  
     //Check if player collides with enemy
     if (
-        player.y + 131 >= anEnemy.y + 90
-        && player.x + 25 <= anEnemy.x + 88
-        && player.y + 73 <= anEnemy.y + 135
-        && player.x + 76 >= anEnemy.x + 11) {
+        player.y + 131 >= anEnemy.y + 90 &&
+        player.x + 25 <= anEnemy.x + 88 &&
+        player.y + 73 <= anEnemy.y + 135 &&
+        player.x + 76 >= anEnemy.x + 11) {
 
         //Resets score to 0 on loss
         score = 0;
@@ -167,7 +167,7 @@ var difficulty = 1;
 
 //Divs for output to screen
 var scoreDiv = document.createElement('div');
-var instructionsDiv = document.createElement('div2')
+var instructionsDiv = document.createElement('div2');
 
 //Sets enemy with position and speed
 var enemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 256);
